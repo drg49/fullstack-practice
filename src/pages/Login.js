@@ -33,6 +33,7 @@ const Login = (props) => {
         .then((data) => {
             console.log(data)
             localStorage.setItem("token", JSON.stringify(data))
+            localStorage.setItem("user", data.username)
             setGState({...gState, token: data.token})
             setForm(blank) //reset the form
             if (data.error) {

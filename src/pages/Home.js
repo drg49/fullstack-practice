@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { GlobalCtx } from "../App"
+import PostCard from "../components/PostCard"
 
 const Home = () => {
     const { gState, setGState } = useContext(GlobalCtx)
@@ -11,7 +12,19 @@ const Home = () => {
             method: "get"
         }).then(response => response.json())
         .then(data => {
-            setPosts()
+            console.log(data)
+            setPosts(data.map((item, index) => {
+                return (
+                    <PostCard 
+                        key={index} 
+                        title={item.title} 
+                        body={item.body} 
+                        upVotes={item.upVotes}
+                        downVotes={item.downVotes}
+                        id={item._id} 
+                    />
+                )
+            }))
         })
     }
 
@@ -20,7 +33,8 @@ const Home = () => {
     }, [])
 
     return (
-        <h1>Home</h1>
+        <div>{posts}</div>
+        
     )
 }
 
